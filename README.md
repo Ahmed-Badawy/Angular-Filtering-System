@@ -4,5 +4,5 @@ Basic angular filtering system to filter between a list of data you provide in a
 It filters the data inside the js_file.js or json_file.js which ever you include in the index.html file...
 
 
-##### Demo:  [View The Demo](http://htmlpreview.github.io/?https://github.com/Ahmed-Badawy/Angular-Filters-System/blob/master/index.html)
+##### Demo:  [View The Demo](http://htmlpreview.github.io/?https://github.com/Ahmed-Badawy/Angular-Filtering-System/blob/master/index.html)
 
