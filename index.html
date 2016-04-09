@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<title>Angular Filtering System</title>
+	<link rel="stylesheet" href="assets/yeti.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+
+
+
+<!-- these are the format data. include just one of them & comment-out the other one -->
+<script type="text/javascript" src='js_file.js'></script> 
+<!-- <script type="text/javascript" src='json_file.js'></script> -->
+
+<!-- this is the application js code-->
+<script type="text/javascript" src='assets/app.js'></script>
+
+
+
+	<style type="text/css">
+	body{
+		font-family: tahoma;
+		font-weight: bold;
+	}
+	pre{
+		background-color: #444;
+		color:white;
+	}
+	.panel-heading{
+		transition: all .2s linear;
+		cursor: pointer;
+	}
+	.panel-heading:hover{
+		background-color: #444;
+		color:white;
+		font-weight: bold !important;
+	}
+
+	</style>
+
+</head>
+<body class='container-fluid' ng-controller='mainController'>
+
+<div class="clearfix"></div>
+<br>
+
+<ul class="alert alert-warning list list-unstyled" style='font-size:16px'>
+	<li>- Can also be filtered by adding the HTTP GET prams: &nbsp; &nbsp;  ?tag=tagName OR ?cate=cateName OR ?q=searchText</li>
+	<li>- PS: tags & categories names are case-sensitive. so take care of what you write.</li>
+</ul>
+
+<h1 class='page-header'>Filtering System</h1>
+
+
+<div class="row">
+	<div class="col-sm-3" data-spy="affix" data-offset-top="20" data-offset-bottom="200">
+
+
+<h4> 
+<b ng-if='search_text!=""' class='btn btn-danger' ng-click='assign("search_text","")'><span class="fa fa-search"></span> Search: {{search_text}} <span class='fa fa-remove'></span></b>
+
+ <b ng-if='define_cate!=""' class='btn btn-danger' ng-click='assign("define_cate","")'><span class="fa fa-archive"></span> Category: {{define_cate}} <span class='fa fa-remove'></span></b>
+
+ <b ng-if='define_tag!=""' class='btn btn-danger' ng-click='assign("define_tag","")'><span class="fa fa-tag"></span> Tag:  {{define_tag}} <span class='fa fa-remove'></span></b>
+</h4>
+
+
+<div class="row">
+<div class="col-sm-12">
+	<label><span class="fa fa-search"></span>  Search:</label>
+	<input class='form-control' ng-model='search_text' placeholder="Search Text"></input>	
+</div>
+<div class="col-sm-6">
+	<label><span class="fa fa-archive"></span> Categories Filter:</label>
+	<select class='form-control' ng-model='define_cate'>
+		<option value=''>Empty</option>
+		<option ng-repeat='cate in cate_list track by $index' value='{{cate}}'>{{cate}}</option>
+	</select>	
+</div>	
+<div class="col-sm-6">
+	<label><span class="fa fa-tag"></span> Tags Filter:</label>
+	<select class='form-control' ng-model='define_tag'>
+		<option value=''>Empty</option>
+		<option ng-repeat='tag in tags_list track by $index' value='{{tag}}'>{{tag}}</option>
+	</select>	
+</div>	
+
+<div class="col-sm-12">
+	<label><span class="fa fa-thumbs-o-up"></span> Order By:</label>
+	<select class='form-control' ng-model='order_by'>
+		<option value=''>No Order</option>
+		<option value='priority'>Priority</option>
+		<option value='- priority'>- Priority</option>
+		<option value='q1'>Heading</option>
+		<option value='- q1'>- Heading</option>
+		<option value='cate'>Category</option>
+		<option value='- cate'>- Category</option>		
+	</select>	
+</div>	
+</div>
+
+	</div>
+	<div class="col-sm-9 pull-right">
+		
+
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat='qes in ng_itiration_data 
+  | filter:search_text 
+  | equality_filter:"cate":define_cate 
+  | array_contains_filter:"tags":define_tag
+  | orderBy:order_by'>
+    <div class="panel-heading" role="tab" id="heading{{$index}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" aria-expanded="true" aria-controls="collapse{{$index}}">
+      <h4 class="panel-title">
+          <div>
+          		<span class='pull-left label label-default'>
+          			<span class="fa fa-thumbs-o-up"></span> {{qes.priority}}
+          		</span>
+          		&nbsp; 
+          		<span ng-bind-html="html(qes.q1)"></span> 
+          		<div class='pull-right'>
+          			<b>Cate:</b>
+          			<button class='btn btn-default btn-xs' ng-click='assign("define_cate",qes.cate)'><span class="fa fa-archive"></span> {{qes.cate}}</button> 
+
+          			<b>Tags:</b>
+          			<span ng-repeat='tag in qes.tags track by $index'>
+          				<button class='btn btn-default btn-xs' ng-click='assign("define_tag",tag)'><span class='fa fa-tag'></span> {{tag}}</button> 
+          			</span>
+          		</div> 
+          		<div class="clearfix"></div>
+          </div>
+      </h4>
+    </div>
+    <div id="collapse{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$index}}">
+      <pre class="panel-body" ng-bind-html="html(qes.q2)"></pre>
+    </div>
+  </div>
+
+
+</div>
+
+
+	</div>	
+</div>
+
+<div class="clearfix"></div><br>
+
+
+
+</body>
+</html>
