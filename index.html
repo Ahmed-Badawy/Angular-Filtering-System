@@ -27,6 +27,7 @@
 	pre{
 		background-color: #444;
 		color:white;
+		padding-left:10px !important;
 	}
 	.panel-heading{
 		transition: all .2s linear;
@@ -57,14 +58,6 @@
 <div class="row">
 	<div class="col-sm-3" data-spy="affix" data-offset-top="20" data-offset-bottom="200">
 
-
-<h4> 
-<b ng-if='search_text!=""' class='btn btn-danger' ng-click='assign("search_text","")'><span class="fa fa-search"></span> Search: {{search_text}} <span class='fa fa-remove'></span></b>
-
- <b ng-if='define_cate!=""' class='btn btn-danger' ng-click='assign("define_cate","")'><span class="fa fa-archive"></span> Category: {{define_cate}} <span class='fa fa-remove'></span></b>
-
- <b ng-if='define_tag!=""' class='btn btn-danger' ng-click='assign("define_tag","")'><span class="fa fa-tag"></span> Tag:  {{define_tag}} <span class='fa fa-remove'></span></b>
-</h4>
 
 
 <div class="row">
@@ -99,6 +92,17 @@
 		<option value='- cate'>- Category</option>		
 	</select>	
 </div>	
+
+<div class="col-sm-12">
+	<h4> 
+		<b ng-if='search_text!=""' class='btn btn-danger' ng-click='assign("search_text","")'><span class="fa fa-search"></span> Search: {{search_text}} <span class='fa fa-remove'></span></b>
+
+	 	<b ng-if='define_cate!=""' class='btn btn-danger' ng-click='assign("define_cate","")'><span class="fa fa-archive"></span> Category: {{define_cate}} <span class='fa fa-remove'></span></b>
+
+	 	<b ng-if='define_tag!=""' class='btn btn-danger' ng-click='assign("define_tag","")'><span class="fa fa-tag"></span> Tag:  {{define_tag}} <span class='fa fa-remove'></span></b>
+	</h4>
+</div>
+
 </div>
 
 	</div>
